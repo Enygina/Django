@@ -21,10 +21,7 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'olgaeny.pythonanywhere.com',
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -82,12 +79,7 @@ WSGI_APPLICATION = "craftholder.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'OlgaEny$default',
-        'USER': 'OlgaEny',
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': 'OlgaEny.mysql.pythonanywhere-services.com',
-        'OPTIONS': {'init_command': "SET NAMES 'utf8mb4'; SET sql_mode='STRICT_TRANS_TABLES'", 'charset': 'utf8mb4'},
-
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -128,8 +120,6 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-STATIC_ROOT = BASE_DIR / 'static'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -149,6 +139,3 @@ EMAIL_USE_TLS = True
 
 YOOKASSA_SECRET_KEY = env('YOOKASSA_SECRET_KEY')
 YOOKASSA_SHOP_ID = env('YOOKASSA_SHOP_ID')
-
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True

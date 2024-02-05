@@ -1,27 +1,25 @@
 # Import for Django-environ
 import os
-import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Start Django-environ
-env = environ.Env(
-    DEBUG=(bool, False)
-)
-# reading .env file
-env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
+# Start Django-environ
+DEBUG = False
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = env('DEBUG')
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'OlgaEny.pythonanywhere.com',
+]
 
 
 # Application definition
@@ -78,8 +76,16 @@ WSGI_APPLICATION = "craftholder.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'OlgaEny$default',
+        'USER': 'OlgaEny',
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'HOST': 'OlgaEny.mysql.pythonanywhere-services.com',
+        'OPTIONS': {
+            'init_command': "SET NAMES 'utf8mb4';SET sql_mode='STRICT_TRANS_TABLES'",
+            'charset': 'utf8mb4',
+        },
+
     }
 }
 
@@ -119,6 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -133,9 +140,9 @@ CART_SESSION_ID = 'cart'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'oenygina@gmail.com'
-EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = 'arui ptli kkix wqxp'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-YOOKASSA_SECRET_KEY = env('YOOKASSA_SECRET_KEY')
-YOOKASSA_SHOP_ID = env('YOOKASSA_SHOP_ID')
+YOOKASSA_SECRET_KEY = 'test_w9c6Y8KAfxixwg5eEF6g8WX7COeBxUZR9RbJMba5AnA'
+YOOKASSA_SHOP_ID = '306193'
